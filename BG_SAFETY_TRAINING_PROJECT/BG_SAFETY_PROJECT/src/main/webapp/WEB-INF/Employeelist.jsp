@@ -47,7 +47,7 @@
                 <td><%= emp.getId() %></td>
                 <td><%= emp.getName() %></td>
                 <td><%= emp.getDepartment() %></td>
-                <td><%= emp.getstatus() %></td>
+                <td><%= emp.getStatus() %></td>
                 <td>
                     <a href="employee-form.jsp?id=<%= emp.getId() %>">✏ Edit</a> |
                     <a href="employee?action=delete&id=<%= emp.getId() %>"
