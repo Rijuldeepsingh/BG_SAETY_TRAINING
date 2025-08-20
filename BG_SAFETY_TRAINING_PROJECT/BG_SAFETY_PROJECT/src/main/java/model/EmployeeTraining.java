@@ -2,9 +2,9 @@ package model;
 
 public class EmployeeTraining {
     private int id;
-    private int employeeId;
-    private int trainingId;
-    private String status; // pending, completed
+    private int employeeId;  // store only ID
+    private int trainingId;  // store only ID
+    private String status;
 
     public EmployeeTraining() {}
 
