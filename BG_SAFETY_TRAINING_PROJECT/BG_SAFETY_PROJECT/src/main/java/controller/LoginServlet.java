@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 
         if (username == null || password == null) {
             request.setAttribute("errorMessage", "Username and password are required");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
@@ -51,19 +51,15 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 
-                // Redirect to dashboard after successful login
-                response.sendRedirect("dashboard.jsp");
+                // Redirect to the admin servlet after successful login
+                response.sendRedirect("admin");
             } else {
                 request.setAttribute("errorMessage", "Invalid username or password");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Database connection error: " + e.getMessage());
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 }
-
-
-
-

@@ -2,18 +2,18 @@ package model;
 
 public class Employee {
     private int id;
+    private String employeeCode;
     private String name;
     private String department;
-    private String email;
-    private String status; 
+    private String status;
 
     public Employee() {}
 
-    public Employee(int id, String name, String department, String email, String stauts) {
+    public Employee(int id, String employeeCode, String name, String department, String status) {
         this.id = id;
+        this.employeeCode = employeeCode;
         this.name = name;
         this.department = department;
-        this.email = email;
         this.status = status;
     }
 
@@ -23,6 +23,13 @@ public class Employee {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
     }
 
     public String getName() {
@@ -39,17 +46,10 @@ public class Employee {
         this.department = department;
     }
 
-    public String getEmail() {
-        return email;
+    public String getStatus() {
+        return status;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public String getStatus() { 
-    	return status;
-    	}
     public void setStatus(String status) {
-    	this.status = status;
+        this.status = status;
     }
 }

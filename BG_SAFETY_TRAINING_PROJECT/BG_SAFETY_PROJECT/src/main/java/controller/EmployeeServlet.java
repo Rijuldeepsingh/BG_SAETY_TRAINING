@@ -17,23 +17,28 @@ public class EmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Employee> employees = employeeDao.getAllEmployees();
-        request.setAttribute("employees", employees);
-        request.getRequestDispatcher("employee-list.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if ("add".equals(action)) {
+            request.getRequestDispatcher("EmployeeForm.jsp").forward(request, response);
+        } else {
+            List<Employee> employees = employeeDao.getAllEmployees();
+            request.setAttribute("employees", employees);
+            request.getRequestDispatcher("EmployeeList.jsp").forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String employeeCode = request.getParameter("employeeCode");
         String name = request.getParameter("name");
         String department = request.getParameter("department");
-        String email = request.getParameter("email");
-        String status = request.getParameter("status");
+        String status = "untrained"; // Set default status to untrained
 
-        Employee emp = new Employee(0, name, department, email, status);
+        Employee emp = new Employee(0, employeeCode, name, department, status);
         employeeDao.addEmployee(emp);
 
-        response.sendRedirect("employee");
+        response.sendRedirect("admin");
     }
 }

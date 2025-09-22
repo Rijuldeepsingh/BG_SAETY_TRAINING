@@ -17,9 +17,14 @@ public class TrainingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Training> trainings = trainingDao.getAllTrainings();
-        request.setAttribute("trainings", trainings);
-        request.getRequestDispatcher("training-list.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if ("add".equals(action)) {
+            request.getRequestDispatcher("TrainingForm.jsp").forward(request, response);
+        } else {
+            List<Training> trainings = trainingDao.getAllTrainings();
+            request.setAttribute("trainings", trainings);
+            request.getRequestDispatcher("TrainingList.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -32,6 +37,6 @@ public class TrainingServlet extends HttpServlet {
         Training training = new Training(0, title, description);
         trainingDao.addTraining(training);
 
-        response.sendRedirect("training");
+        response.sendRedirect("admin");
     }
 }

@@ -41,4 +41,32 @@ public class EmployeeTrainingDao {
         }
         return list;
     }
+
+    public List<model.EmployeeTrainingDetails> getEmployeeTrainingDetailsByStatus(String status) {
+        List<model.EmployeeTrainingDetails> detailsList = new ArrayList<>();
+        String sql = "SELECT e.id AS employee_id, e.name AS employee_name, t.title AS training_name, et.assignment_date " +
+                     "FROM employees e " +
+                     "JOIN employee_training et ON e.id = et.employee_id " +
+                     "JOIN trainings t ON et.training_id = t.id " +
+                     "WHERE e.status = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                detailsList.add(new model.EmployeeTrainingDetails(
+                    rs.getInt("employee_id"),
+                    rs.getString("employee_name"),
+                    rs.getString("training_name"),
+                    rs.getDate("assignment_date")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return detailsList;
+    }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.EmployeeDao;
 import dao.EmployeeTrainingDao;
 import model.EmployeeTraining;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class EmployeeTrainingServlet extends HttpServlet {
 
     private final EmployeeTrainingDao employeeTrainingDao = new EmployeeTrainingDao();
+    private final EmployeeDao employeeDao = new EmployeeDao(); // Add EmployeeDao instance
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,18 +34,22 @@ public class EmployeeTrainingServlet extends HttpServlet {
             int trainingId = Integer.parseInt(request.getParameter("trainingId"));
             String status = request.getParameter("status");
 
-            // Optional: validate status matches expected ENUM
-            if (!status.equals("Not Trained") && !status.equals("In Training") && !status.equals("Trained")) {
-                throw new IllegalArgumentException("Invalid training status");
+            // Validate status to match the standardized values
+            if (!status.equals("untrained") && !status.equals("in_training") && !status.equals("trained")) {
+                throw new IllegalArgumentException("Invalid training status: " + status);
             }
 
+            // Assign the training
             EmployeeTraining et = new EmployeeTraining(0, employeeId, trainingId, status);
             employeeTrainingDao.assignTraining(et);
+
+            // Update the employee's overall status in the employees table
+            employeeDao.updateEmployeeStatus(employeeId, status);
 
             response.sendRedirect("employee-training");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input: " + e.getMessage());
         }
     }
 }

@@ -306,14 +306,14 @@ body {
 		<div class="dashboard-header">
 			<div class="user-info">
 				<span class="username">
-					<%= "admin".equalsIgnoreCase(role) ? "ADMIN NAME" : "USER NAME" %>
+					<%= (loggedUser != null) ? loggedUser.getUsername().toUpperCase() : "GUEST" %>
 				</span>
 				<div class="nav-buttons">
-					<button class="nav-btn trained">TRAINED</button>
-					<button class="nav-btn untrained">UNTRAINED</button>
-					<button class="nav-btn training">TRAINING</button>
+					<a href="training-list?status=trained" class="nav-btn trained">TRAINED</a>
+					<a href="untrained-list" class="nav-btn untrained">UNTRAINED</a>
+					<a href="training-list?status=in_training" class="nav-btn training">TRAINING</a>
 					<% if ("admin".equalsIgnoreCase(role)) { %>
-					<button class="nav-btn assign">ASSIGN</button>
+					<a href="assign-training" class="nav-btn assign">ASSIGN</a>
 					<% } %>
 				</div>
 			</div>
@@ -336,22 +336,21 @@ body {
 				<h2 class="section-title">TOTAL COUNT OF EMPLOYEES</h2>
 				
 				<div class="stats-container">
-					<div class="stat-item">
-						<button class="stat-button trained">TRAINED</button>
-						<div class="stat-number"><%= request.getAttribute("trainedCount") != null ? request.getAttribute("trainedCount") : "28" %></div>
-					</div>
-					
-					<div class="stat-item">
-						<button class="stat-button untrained">UNTRAINED</button>
-						<div class="stat-number"><%= request.getAttribute("untrainedCount") != null ? request.getAttribute("untrainedCount") : "28" %></div>
-					</div>
-					
-					<div class="stat-item">
-						<button class="stat-button training">TRAINING</button>
-						<div class="stat-number"><%= request.getAttribute("inTrainingCount") != null ? request.getAttribute("inTrainingCount") : "28" %></div>
-					</div>
-				</div>
-			</div>
+				        <div class="stat-item">
+				            <button class="stat-button trained">TRAINED</button>
+				            <div class="stat-number"><%= request.getAttribute("trainedCount") != null ? request.getAttribute("trainedCount") : "0" %></div>
+				        </div>
+				        
+				        <div class="stat-item">
+				            <button class="stat-button untrained">UNTRAINED</button>
+				            <div class="stat-number"><%= request.getAttribute("untrainedCount") != null ? request.getAttribute("untrainedCount") : "0" %></div>
+				        </div>
+				        
+				        <div class="stat-item">
+				            <button class="stat-button training">TRAINING</button>
+				            <div class="stat-number"><%= request.getAttribute("inTrainingCount") != null ? request.getAttribute("inTrainingCount") : "0" %></div>
+				        </div>
+				    </div>			</div>
 
 			<!-- Right Section - Admin Only -->
 			<% if ("admin".equalsIgnoreCase(role)) { %>
@@ -362,6 +361,7 @@ body {
 					<div class="action-item">
 						<div class="action-title">ADD NEW TRAINING</div>
 						<form action="training" method="get" style="display: inline;">
+							<input type="hidden" name="action" value="add">
 							<button type="submit" class="action-btn">ADD</button>
 						</form>
 					</div>
@@ -369,6 +369,7 @@ body {
 					<div class="action-item">
 						<div class="action-title">ADD NEW EMPLOYEE</div>
 						<form action="employee" method="get" style="display: inline;">
+							<input type="hidden" name="action" value="add">
 							<button type="submit" class="action-btn">ADD</button>
 						</form>
 					</div>

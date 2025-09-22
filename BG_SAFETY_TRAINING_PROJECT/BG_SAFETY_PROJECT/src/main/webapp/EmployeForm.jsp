@@ -25,9 +25,6 @@
 		<br> <label for="department">Department:</label> <input
 			type="text" id="department" name="department"
 			value="<%= isEdit ? emp.getDepartment() : "" %>" required><br>
-		<br> <label for="email">Email:</label> <input type="email"
-			id="email" name="email" value="<%= isEdit ? emp.getEmail() : "" %>"
-			required><br>
 		<br>
 
 		<button type="submit"><%= isEdit ? "Update Employee" : "Add Employee" %></button>

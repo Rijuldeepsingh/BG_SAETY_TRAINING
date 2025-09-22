@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.EmployeeTrainingDetails" %>
+<%@ page import="model.Employee" %>
 <%@ page import="model.User" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>List of Trained Employees</title>
+    <title>List of Untrained Employees</title>
     <link rel="stylesheet" href="css/list-styles.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
 
     <!-- Main Content -->
     <div class="content-container">
-        <h2 class="page-title">LIST OF TRAINED EMPLOYEES</h2>
+        <h2 class="page-title">LIST OF UNTRAINED EMPLOYEES</h2>
         <table>
             <thead>
                 <tr>
@@ -49,22 +49,22 @@
             </thead>
             <tbody>
                 <%
-                    List<EmployeeTrainingDetails> employeeList = (List<EmployeeTrainingDetails>) request.getAttribute("employeeList");
+                    List<Employee> employeeList = (List<Employee>) request.getAttribute("employeeList");
                     if (employeeList != null && !employeeList.isEmpty()) {
-                        for (EmployeeTrainingDetails item : employeeList) {
+                        for (Employee item : employeeList) {
                 %>
                 <tr>
-                    <td><%= item.getEmployeeId() %></td>
-                    <td><%= item.getEmployeeName() %></td>
-                    <td><%= item.getTrainingName() %></td>
-                    <td><%= item.getTrainingDate() %></td>
+                    <td><%= item.getId() %></td>
+                    <td><%= item.getName() %></td>
+                    <td>N/A</td>
+                    <td>N/A</td>
                 </tr>
                 <%
                         }
                     } else {
                 %>
                 <tr>
-                    <td colspan="4">No trained employees found.</td>
+                    <td colspan="4">No untrained employees found.</td>
                 </tr>
                 <% } %>
             </tbody>

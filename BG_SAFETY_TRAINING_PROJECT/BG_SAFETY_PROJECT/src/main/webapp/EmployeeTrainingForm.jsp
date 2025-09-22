@@ -87,9 +87,9 @@ input[type="submit"]:hover {
 
 			<!-- Status Input -->
 			<label for="status">Status:</label> <select name="status" required>
-				<option value="Assigned">Assigned</option>
-				<option value="In Progress">In Progress</option>
-				<option value="Completed">Completed</option>
+				<option value="untrained">Untrained</option>
+				<option value="in_training">In Training</option>
+				<option value="trained">Trained</option>
 			</select> <input type="submit" value="Assign Training">
 		</form>
 	</div>

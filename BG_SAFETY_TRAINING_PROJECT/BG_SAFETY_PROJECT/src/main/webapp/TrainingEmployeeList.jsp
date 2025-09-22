@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>List of Trained Employees</title>
+    <title>List of Employees in Training</title>
     <link rel="stylesheet" href="css/list-styles.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
 
     <!-- Main Content -->
     <div class="content-container">
-        <h2 class="page-title">LIST OF TRAINED EMPLOYEES</h2>
+        <h2 class="page-title">LIST OF EMPLOYEES IN TRAINING</h2>
         <table>
             <thead>
                 <tr>
@@ -64,7 +64,7 @@
                     } else {
                 %>
                 <tr>
-                    <td colspan="4">No trained employees found.</td>
+                    <td colspan="4">No employees in training found.</td>
                 </tr>
                 <% } %>
             </tbody>
